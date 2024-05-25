@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   Splitting();
@@ -6,32 +6,41 @@ document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
   const gTl = gsap.timeline();
-  gTl.from(".title .char", 1, {
-    opacity: 0,
-    yPercent: 130,
-    stagger: 0.06,
-    ease: "back.out",
-  });
-  gTl.to(
-    ".header__img",
-    2,
-    {
-      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      scale: 1,
-      ease: "expo.out",
-    },
-    "-=1"
-  );
-  gTl.from(
-    ".header__marq",
-    2,
-    { opacity: 0, yPercent: 100, ease: "expo.out" },
-    "-=1.5"
-  );
+  gTl
+    .from(".title .char", {
+      duration: 1,
+      opacity: 0,
+      yPercent: 130,
+      stagger: 0.06,
+      ease: "back.out",
+    })
+    .to(
+      ".header__img",
+      {
+        duration: 2,
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        scale: 1,
+        ease: "expo.out",
+      },
+      "-=1"
+    )
+    .from(
+      ".header__marq",
+      {
+        duration: 2,
+        opacity: 0,
+        yPercent: 100,
+        ease: "expo.out",
+      },
+      "-=1.5"
+    );
 
   const gsapSq = gsap.utils.toArray(".section-title__square");
-  gsapSq.forEach((gSq, i) => {
-    const rotat = gsap.from(gSq, 3, { rotation: 720 });
+  gsapSq.forEach((gSq) => {
+    const rotat = gsap.from(gSq, {
+      duration: 3,
+      rotation: 720,
+    });
     ScrollTrigger.create({
       trigger: gSq,
       animation: rotat,
@@ -40,8 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  //header
-  function header() {
+  function createHeaderAnimations() {
     gsap.to(".title_paralax", {
       scrollTrigger: {
         trigger: ".header",
@@ -91,10 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
       rotate: -720,
     });
   }
-  header();
+  createHeaderAnimations();
 
-  //about
-  function about() {
+  function createAboutAnimations() {
     gsap.from(".about__img", {
       scrollTrigger: {
         trigger: ".about",
@@ -120,10 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
       yPercent: 50,
     });
   }
-  about();
+  createAboutAnimations();
 
-  //benefits
-  function benefits() {
+  function createBenefitsAnimations() {
     gsap.from(".benefits__num", {
       x: (i, el) => 1 - parseFloat(el.getAttribute("data-speed")),
       scrollTrigger: {
@@ -133,10 +139,9 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   }
-  benefits();
+  createBenefitsAnimations();
 
-  //portfolio
-  function portfolio() {
+  function createPortfolioAnimations() {
     gsap.from(".work__item, .work__item-num", {
       y: (i, el) => 1 - parseFloat(el.getAttribute("data-speed")),
       scrollTrigger: {
@@ -154,10 +159,9 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   }
-  portfolio();
+  createPortfolioAnimations();
 
-  //serv
-  function serv() {
+  function createServAnimations() {
     gsap.from(".serv__item-arrow", {
       x: (i, el) => 1 - parseFloat(el.getAttribute("data-speed")),
       scrollTrigger: {
@@ -167,10 +171,9 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   }
-  serv();
+  createServAnimations();
 
-  //footer
-  function footer() {
+  function createFooterAnimations() {
     gsap.from(".footer__div span", {
       y: (i, el) => 1 - parseFloat(el.getAttribute("data-speed")),
       opacity: 0,
@@ -182,5 +185,5 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   }
-  footer();
+  createFooterAnimations();
 });
